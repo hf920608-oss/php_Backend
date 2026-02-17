@@ -1,0 +1,1 @@
+PHP & MySQL based eCommerce project with user login, product listing, cart, order tracking, and admin panel. Basic CSS used for styling. Core functionality includes managing products, categories, and orders.

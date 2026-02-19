@@ -1,7 +1,11 @@
  <?php
     include('config.inc.php');
     include('function.inc.php');
+    if(isset($_SESSION['cart']) && $_SESSION['cart'] != ""){
 
+    }else{
+        header("location:index.php");
+    }
     if (isset($_POST['remove']) && $_POST['remove'] != '' && isset($_GET['key']) && $_GET['key'] != '') {
         $key = $_GET['key'];
         if (isset($_SESSION['cart'][$key])) {
@@ -75,7 +79,7 @@
                    
                 }
             }
-            unset($_SESSION['cart']);   
+            // unset($_SESSION['cart']);   
 
              if($payment != "payp"){
             header("location:usersOrder.php");

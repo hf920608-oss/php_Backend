@@ -1,13 +1,17 @@
         <?php
         include('config.inc.php');
         include('function.inc.php');
+        if (isset($_SESSION['cart']) && $_SESSION['cart'] != "") {
+        } else {
+          header("location:index.php");
+        }
         include('./shared/header.php');
 
         $get_user_id = "SELECT * FROM users WHERE email = '" . $_SESSION['email'] . "'";
         $exec = mysqli_query($con, $get_user_id);
         $row = mysqli_fetch_assoc($exec);
         $user_id = $row['id'];
-        $order_list = "SELECT orders.*,order_status.name FROM orders INNER JOIN order_status ON orders.orderStatus = order_status.id WHERE user_id = '".$user_id."'";
+        $order_list = "SELECT orders.*,order_status.name FROM orders INNER JOIN order_status ON orders.orderStatus = order_status.id WHERE user_id = '" . $user_id . "'";
         // prx($order_list);
         $exec1 = mysqli_query($con, $order_list);
 
@@ -41,15 +45,15 @@
                     while ($row = mysqli_fetch_assoc($exec1)) {
                       echo '
           <tr>
-                                <td><a href="my_orders.php?myOrders_id='.$row['id'].'">'.$row['id'].'</a></td>
-                                <td>'.$row['addedOn'].'</td>
-                                <td>'.$row['address'].','.$row['city'].','.$row['pinCode'].'</td>
-                                <td>'.$row['pymentType'].'</td>
+                                <td><a href="my_orders.php?myOrders_id=' . $row['id'] . '">' . $row['id'] . '</a></td>
+                                <td>' . $row['addedOn'] . '</td>
+                                <td>' . $row['address'] . ',' . $row['city'] . ',' . $row['pinCode'] . '</td>
+                                <td>' . $row['pymentType'] . '</td>
                                 <td>
-                                    <span class="badge bg-warning text-dark">'.$row['paymentStatus'].'</span>
+                                    <span class="badge bg-warning text-dark">' . $row['paymentStatus'] . '</span>
                                 </td>
                                 <td>
-                                    <span class="badge bg-info text-dark">'.$row['name'].'</span>
+                                    <span class="badge bg-info text-dark">' . $row['name'] . '</span>
                                 </td>
                             </tr>
     ';

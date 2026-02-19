@@ -1,7 +1,11 @@
     <?php
     include('config.inc.php');
     include('function.inc.php');
+    if(isset($_SESSION['cart']) && $_SESSION['cart'] != ""){
 
+    }else{
+        header("location:index.php");
+    }
     
     
     include('./shared/header.php');

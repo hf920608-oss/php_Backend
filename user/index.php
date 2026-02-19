@@ -6,21 +6,23 @@ include('./shared/header.php');
 // Fetch all categories
 $all_categories_query = "SELECT * FROM category";
 $exec1 = mysqli_query($con, $all_categories_query);
+$row1 = mysqli_fetch_assoc($exec1);
+mysqli_data_seek($exec1, 0);
 ?>
 
 <?php
 while($row1 = mysqli_fetch_assoc($exec1)){
     $category_id = $row1['id'];
     $category_name = $row1['categoryName'];
-
+    
     // Fetch products for this category
     $products_query = "SELECT product.*, category.categoryName 
                        FROM product 
                        INNER JOIN category ON product.categories = category.id 
                        WHERE category.id = '".$category_id."' AND product.status = '1'
                        ORDER BY product.id";
-    $exec2 = mysqli_query($con, $products_query);
-?>
+                       $exec2 = mysqli_query($con, $products_query);
+                       ?>
 <section class="htc__category__area ptb--100">
     <div class="container">
         <div class="row">
@@ -33,11 +35,12 @@ while($row1 = mysqli_fetch_assoc($exec1)){
         <div class="htc__product__container">
             <div class="row">
                 <div class="product__list clearfix mt--30">
-                    <?php while($row = mysqli_fetch_assoc($exec2)) { ?>
+                    <?php while($row = mysqli_fetch_assoc($exec2)) {  ?>
+
                         <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12 mb-4">
                             <div class="category card shadow-sm">
                                 <div class="ht__cat__thumb">
-                                    <a href="clothsCategory.php?category_id=<?= $row['id'] ?>">
+                                    <a href="clothsCategory.php?category_id=<?= $row1['id'] ?>">
                                         <img src="../imagess/<?= $row['productImage'] ?>" alt="product images" class="img-fluid product-img">
                                     </a>
                                 </div>
@@ -52,7 +55,7 @@ while($row1 = mysqli_fetch_assoc($exec1)){
                                     <h5><a href="clothsCategory.php?category_id=<?= $row['id'] ?>"><?= htmlspecialchars($row['productName']) ?></a></h5>
                                     <ul class="fr__pro__prize list-unstyled d-flex justify-content-center gap-2">
                                         <li class="old__prize">$<?= $row['productPrice'] ?></li>
-                                        <li>$25.9</li>
+                                 
                                     </ul>
                                 </div>
                             </div>
